@@ -1,0 +1,12 @@
+services:
+  mysql:
+    image: 'mysql:26.7.0'
+    environment:
+      - 'MYSQL_DATABASE=sportmanage'
+      - 'MYSQL_USER=claudio'
+      - 'MYSQL_PASSWORD=claudio'
+      - 'MYSQL_ROOT_PASSWORD=claudio'
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
