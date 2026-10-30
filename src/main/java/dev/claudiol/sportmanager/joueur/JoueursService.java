@@ -11,7 +11,7 @@ public class JoueursService {
     }
 
     public String findAll() {
-        return "Find all service called";
+        return repository.findAll().toString();
     }
 
     public String findById(Integer id) {

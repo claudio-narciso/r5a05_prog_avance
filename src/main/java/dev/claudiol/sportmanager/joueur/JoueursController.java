@@ -1,28 +1,34 @@
 package dev.claudiol.sportmanager.joueur;
 
+import org.apache.coyote.Response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/joueurs")
 public class JoueursController {
 
-    private final JoueursService service;
+    private final JoueurRepository repository;
 
-    public JoueursController(JoueursService service) {
-        this.service = service;
+    public JoueursController(JoueurRepository repository) {
+        this.repository = repository;
     }
 
 
     @GetMapping
-    public String getAll() {
-        return service.findAll();
+    public ResponseEntity<Joueur> getAll() {
+        return null;
     }
 
     @GetMapping("/{id}")
-    public String getOne(@PathVariable Integer id) {
-        return service.findById(10);
+    public ResponseEntity<Joueur> getOne(@PathVariable Integer id) {
+        Optional<Joueur> joueur = repository.findById(id);
+        return joueur.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 }
